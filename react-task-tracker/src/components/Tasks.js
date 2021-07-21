@@ -2,7 +2,7 @@ import Task from "./Task"
 import EditTask from "./EditTask"
 import Button from "./Button"
 
-const Tasks = ({ tasks, onDelete, onRemind, onEdit, showEditTask, onUpdate }) => {
+const Tasks = ({ tasks, onDelete, onRemind, showEditTask, onUpdate, showLocation, toggleLocation }) => {
     return (
         <>
             {tasks.map((task) => (
@@ -10,10 +10,11 @@ const Tasks = ({ tasks, onDelete, onRemind, onEdit, showEditTask, onUpdate }) =>
                     key={task.id}
                     task={task} 
                     onDelete={onDelete} 
-                    onRemind={onRemind} 
-                    onEdit={onEdit} 
+                    onRemind={onRemind}  
                     showEditTask={showEditTask} 
                     onUpdate={onUpdate}
+                    showLocation={showLocation}
+                    toggleLocation={toggleLocation}
                 />
                 
                 

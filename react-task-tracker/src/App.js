@@ -9,6 +9,7 @@ import About from './components/About';
 const App = () => {
   const [showAddTask, setShowAddTask] = useState(false)
   const [showEditTask, setShowEditTask] = useState(false)
+  const [showLocation, setLocation] = useState(false)
   const [tasks, setTasks] = useState([])
 
   useEffect(() => {
@@ -110,7 +111,7 @@ const App = () => {
           <>
             {showAddTask ? <AddTask onAdd={addTask}/> : ''}
             
-            {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onRemind={toggleReminder} onEdit={() => setShowEditTask(!showEditTask)} showEditTask={showEditTask} onUpdate={updateTask}/> : 'No Tasks To Show'}
+            {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onRemind={toggleReminder} showEditTask={showEditTask} onUpdate={updateTask} showLocation={showLocation} toggleLocation={() => setLocation(!showLocation)}/> : 'No Tasks To Show'}
           </>
         )}/>
         <Route path='/about' component={About} />
