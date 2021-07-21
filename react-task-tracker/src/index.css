@@ -8,6 +8,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
+  background-color: olivedrab
 }
 
 .container {
@@ -18,6 +19,7 @@ body {
   border: 1px solid steelblue;
   padding: 30px;
   border-radius: 5px;
+  background-color: #ffffff;
 }
 
 .header {
@@ -30,7 +32,7 @@ body {
 .btn {
   display: inline-block;
   background: #000;
-  color: #fff;
+  color: white;
   border: none;
   padding: 10px 20px;
   margin: 5px;
@@ -39,6 +41,7 @@ body {
   text-decoration: none;
   font-size: 15px;
   font-family: inherit;
+  
 }
 
 .btn:focus {
@@ -104,6 +107,12 @@ body {
 .form-control-check input {
   flex: 2;
   height: 20px;
+}
+
+.header-btn {
+  overflow: auto;
+  border: 1px solid steelblue;
+  border-radius: 5px;
 }
 
 footer {

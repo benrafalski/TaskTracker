@@ -8,6 +8,7 @@ import About from './components/About';
 
 const App = () => {
   const [showAddTask, setShowAddTask] = useState(false)
+  const [showEditTask, setShowEditTask] = useState(false)
   const [tasks, setTasks] = useState([])
 
   useEffect(() => {
@@ -65,9 +66,22 @@ const App = () => {
   }
 
   // Update Task
-  const updateTask = async (id) => {
-    const taskToEdit = await fetchTask(id)
-    const updatedTask = { ...taskToEdit,  }
+  const updateTask = async (task, id) => {
+    const taskToToggle = await fetchTask(id)
+    console.log(taskToToggle)
+    const updatedTask = { ...taskToToggle, text: task.text, day: task.day }
+
+    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type' : 'application/json'
+       },
+       body: JSON.stringify(updatedTask)
+    })
+
+    const data = await res.json()
+
+    setTasks(tasks.map((task2) => task2.id === id ? { ...task2, text: data.text, day: data.day } : task2))
   }
 
   // Toggle reminder from true/false
@@ -91,11 +105,12 @@ const App = () => {
   return (
     <Router>
       <div className="container">
-        <Header onAdd={() => setShowAddTask(!showAddTask)} showAddTask={showAddTask}/>
+        <Header onAdd={() => setShowAddTask(!showAddTask)} showAddTask={showAddTask} onEdit={() => setShowEditTask(!showEditTask)} showEditTask={showEditTask}/>
         <Route path='/' exact render={(props) => (
           <>
             {showAddTask ? <AddTask onAdd={addTask}/> : ''}
-            {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onRemind={toggleReminder} /> : 'No Tasks To Show'}
+            
+            {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onRemind={toggleReminder} onEdit={() => setShowEditTask(!showEditTask)} showEditTask={showEditTask} onUpdate={updateTask}/> : 'No Tasks To Show'}
           </>
         )}/>
         <Route path='/about' component={About} />
